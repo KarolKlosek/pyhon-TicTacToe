@@ -2,7 +2,7 @@ import socket
 import threading
 
 class TicTacToe:
-
+    # init whole board and symbols for game
     def __init__(self):
         self.board = [[" "," "," "],[" "," "," "],[" "," "," "]]
         self.turn = "X"
@@ -12,13 +12,11 @@ class TicTacToe:
         self.game_over = False
 
         self.counter = 0
-
+    # start server
     def host_game(self, host, port):
         server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         server.bind((host, port))
         server.listen(1)
-
-
 
         client, addr = server.accept()
 
@@ -26,7 +24,7 @@ class TicTacToe:
         self.opponent = "0"
         threading.Thread(target=self.handle_connection, args=(client,)).start()
         server.close()
-
+    # connection to server
     def connect_to_game(self, host, port):
         client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         client.connect((host, port))
@@ -34,7 +32,7 @@ class TicTacToe:
         self.you = '0'
         self.opponent = 'X'
         threading.Thread(target=self.handle_connection, args=(client,)).start()
-
+    # whole logic for game
     def handle_connection(self, client):
         while not self.game_over:
             if self.turn == self.you:
@@ -103,7 +101,6 @@ class TicTacToe:
                 print("--------")
           
 # u need change localhost to ip from host server
-
 
 game = TicTacToe()
 game.connect_to_game("localhost", 9999)

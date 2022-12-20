@@ -24,14 +24,6 @@ class TicTacToe:
         self.opponent = "0"
         threading.Thread(target=self.handle_connection, args=(client,)).start()
         server.close()
-    # connection to server
-    def connect_to_game(self, host, port):
-        client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        client.connect((host, port))
-
-        self.you = '0'
-        self.opponent = 'X'
-        threading.Thread(target=self.handle_connection, args=(client,)).start()
     # whole logic for game
     def handle_connection(self, client):
         while not self.game_over:
@@ -98,7 +90,7 @@ class TicTacToe:
         for row in range(3):
             print(" |".join(self.board[row]))
             if row != 2:
-                print("--------------")
+                print("--------")
 
 # localhost chnge to your ip in local net or your public ip
 # ur public ip can find in https://myip.is/
